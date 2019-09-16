@@ -61,3 +61,92 @@ git push -u origin master
     i.e if the driver is busy red indication 
     if the driver is free green indication
     ```
+    
+    
+### Duties
+
+
+****login and registration***
+>Login activity
+>signup /registraion activity
+>authentication for login
+>handle signup of new clients
+
+- Assignments
+   - Renzel
+   - Eugene
+ 
+
+
+***request ride / schedule a trip***
+>view map and current location
+>select pick up and drop off location. 
+>calculate distance and time estimate of two/three locations selected, to get ride estimate
+>request for pick up
+
+- assignments
+   - Norman 
+   - Breimer Radido 
+
+***view help page***
+>switch payment method
+>signup
+>accessibility
+>guide to uber
+>trip issues and refund
+
+- assignments
+   - Kevin
+   - Biggie
+
+***View trips done***
+>historical view of trips 
+>>display date, amount, rating, pick up and drop off locations
+
+- by:
+    - +254 799 863077
+    - +254 791 000911 
+
+
+***payment methods***
+>card or cash or mpesa
+>ride profile(personal or official/business)
+>add promo code
+
+- assignments
+   - Altruism
+   - Philip Odera
+   
+***settings***
+>user profile(name,phone,email, favorite places, trusted contacts
+>set up family
+>privacy,
+>security
+>signout
+
+- assignments
+   - Musyoka
+   - Eugene
+   - +254 728 982213
+
+***view legal***
+>copright activity
+>terms and conditions
+>privacy policy
+>data providers 
+>software license
+>locations 
+
+- assignments
+   - Enonymous
+   - Swai
+   
+****localisation****
+> App localisation.
+
+- assignments
+   - Yego
+   - Feloh
+   
+
+
