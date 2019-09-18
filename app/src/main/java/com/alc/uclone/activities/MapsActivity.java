@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.alc.uclone.libs.maps.MapManager;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
@@ -24,7 +25,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     private GoogleMap mMap;
 
-    private int mPermissionCheck = 0;
+    public static float DEFAULT_ZOOM = 15.0f;
 
     private final int LOCATION_REQUEST_CURRENT = 0;
 
@@ -50,24 +51,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMapMapManager.setLocation(currentLocation());
+        mMapMapManager.setLocationAndUpdateCameraZoom(currentLocation(), DEFAULT_ZOOM);
     }
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case LOCATION_REQUEST_CURRENT:
-                // TODO issue iterative
-                if (permissions.length == 1 &&
-                        permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mMapMapManager.setLocation(currentLocation());
-                }
-                break;
+        if
+        (requestCode == LOCATION_REQUEST_CURRENT) {// TODO issue iterative
+            if (permissions.length == 1 &&
+                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mMapMapManager.setLocation(currentLocation());
 
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
 
@@ -114,7 +113,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
 
+        }
     }
 
     @Override

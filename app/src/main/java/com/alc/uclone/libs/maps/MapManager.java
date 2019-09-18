@@ -1,23 +1,14 @@
 package com.alc.uclone.libs.maps;
 
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,19 +21,28 @@ import java.lang.ref.WeakReference;
 
 public class MapManager implements OnMapReadyCallback {
 
+    private Long lat;
 
-    // week reference since Async Task used
-    private WeakReference<Activity> mContext;
+    private Long lng;
 
     private GoogleMap mMap;
+
+    public Location location;
+
+    private static String TAG = "MAP_MANAGER";
+
+    // week reference since Async Task used
+    private WeakReference<Context> mActivity;
 
 
     private OnMapReadyCallback mMapReady;
 
-    public MapManager(Activity context, OnMapReadyCallback onMapReady, Fragment fragment) {
+    private LatLng latLng;
+
+    public MapManager(Context activity, OnMapReadyCallback onMapReady, Fragment fragment) {
         mMapReady = onMapReady;
 
-        mContext = new WeakReference<>(context);
+        mActivity = new WeakReference<>(activity);
 
         SupportMapFragment mFragment = (SupportMapFragment) fragment;
 
@@ -51,34 +51,69 @@ public class MapManager implements OnMapReadyCallback {
     }
 
     private LatLng setLocation(long lat, long lng) {
-        LatLng location = new LatLng(lat, lng);
+        latLng = setLatLng(lat, lng);
 
-        setLocation(location);
+        setLocation(latLng);
 
-        updateCameraLocation(location);
+        updateCameraLocation(latLng);
 
-        return location;
+        return latLng;
+    }
+
+    private LatLng setLatLng(Long lat, Long lng) {
+        this.lat = lat;
+        this.lng = lng;
+        latLng = new LatLng(lat, lng);
+
+        return latLng;
     }
 
     public void setLocationAndUpdateCamera(long lat, long lng) {
-        LatLng loc = setLocation(lat, lng);
+        updateCameraLocation(setLatLng(lat, lng));
+    }
 
-        updateCameraLocation(loc);
+    public void setLocationAndUpdateCameraZoom(long lat, long lng, float zoom) {
+        setLocationAndUpdateCamera(lat, lng);
+        zoomTo(zoom);
+    }
 
+    public void setLocationAndUpdateCameraZoom(LatLng location, float zoom) {
+        setLocation(location);
+        zoomTo(zoom);
     }
 
     public void setLocation(LatLng loc, @Nullable String title) {
         mMap.addMarker(new MarkerOptions().position(loc).title(title));
+
     }
 
 
     public void setLocation(LatLng loc) {
+        this.latLng = loc;
         mMap.addMarker(new MarkerOptions().position(loc));
     }
 
     void updateCameraLocation(LatLng loc) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(loc));
+    }
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,20));
+    void updateCameraLocationZoom(LatLng loc, int zoom) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, zoom));
+    }
+
+
+    /**
+     * TODO
+     * implementation not functional
+     */
+    public void zoomTo(float zoom) {
+
+        if (this.latLng != null) {
+            Log.d(TAG, "Zooming the map");
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(this.latLng, zoom));
+
+        }
+
     }
 
     void setZoom(@NonNull int zoom) {
@@ -92,12 +127,15 @@ public class MapManager implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMapReady.onMapReady(googleMap);
+        // enable features
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
+        mMapReady.onMapReady(googleMap);
 
     }
 
     public void setMyLocationEnabled(boolean b) {
-        mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(b);
     }
 }
