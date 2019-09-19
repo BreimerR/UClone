@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.alc.uclone.libs.maps.MapManager;
+import com.alc.uclone.models.Car;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -51,7 +52,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        LatLng loc = currentLocation();
+
+        String lat = Double.toString(loc.latitude);
+        String lng = Double.toString(loc.latitude);
+
         mMapMapManager.setLocationAndUpdateCameraZoom(currentLocation(), DEFAULT_ZOOM);
+
+        mMapMapManager.addCar(new Car("cad", "true", "0.2", lat,lng));
     }
 
 

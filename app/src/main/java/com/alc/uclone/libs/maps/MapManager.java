@@ -1,7 +1,10 @@
 package com.alc.uclone.libs.maps;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.util.Log;
 
@@ -9,10 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.alc.uclone.activities.R;
+import com.alc.uclone.models.Car;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -32,14 +38,13 @@ public class MapManager implements OnMapReadyCallback {
     private static String TAG = "MAP_MANAGER";
 
     // week reference since Async Task used
-    private WeakReference<Context> mActivity;
-
+    private WeakReference<Activity> mActivity;
 
     private OnMapReadyCallback mMapReady;
 
     private LatLng latLng;
 
-    public MapManager(Context activity, OnMapReadyCallback onMapReady, Fragment fragment) {
+    public MapManager(Activity activity, OnMapReadyCallback onMapReady, Fragment fragment) {
         mMapReady = onMapReady;
 
         mActivity = new WeakReference<>(activity);
@@ -87,10 +92,14 @@ public class MapManager implements OnMapReadyCallback {
 
     }
 
-
     public void setLocation(LatLng loc) {
         this.latLng = loc;
-        mMap.addMarker(new MarkerOptions().position(loc));
+
+        mMap.addMarker(
+                new MarkerOptions()
+                        .position(loc)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.engaged))
+        );
     }
 
     void updateCameraLocation(LatLng loc) {
@@ -110,7 +119,15 @@ public class MapManager implements OnMapReadyCallback {
 
         if (this.latLng != null) {
             Log.d(TAG, "Zooming the map");
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(this.latLng, zoom));
+
+            CameraPosition cPosition = new CameraPosition.Builder()
+                    .tilt(20.0f)
+                    .target(latLng)
+                    .zoom(zoom)
+                    .build();
+
+
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cPosition));
 
         }
 
@@ -138,4 +155,53 @@ public class MapManager implements OnMapReadyCallback {
     public void setMyLocationEnabled(boolean b) {
         mMap.setMyLocationEnabled(b);
     }
+
+
+    /**
+     * TODO
+     * car state is saved in the parcelable car object
+     */
+    public void addCars(Car[] cars) {
+        for (Car car : cars) {
+            addCar(car);
+        }
+    }
+
+    public void addCar(Car car) {
+        if (car.isFree()) {
+            addFreeCar(car);
+        } else addEngagedCar(car);
+    }
+
+    private void addEngagedCar(Car car) {
+        // TODO car has states i.e engaged and free states different Icons can be used for them
+        // TODO lazy init would be preffered
+        addMarker(
+                new MarkerOptions()
+                        .position(car.getLocation())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.engaged))
+        );
+    }
+
+
+    private void addMarker(MarkerOptions marker) {
+        mMap.addMarker(marker);
+    }
+
+    private void addFreeCar(Car car) {
+        // TODO car has states i.e engaged and free states different Icons can be used for them
+        addMarker(
+                new MarkerOptions()
+                        .position(car.getLocation())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.free))
+        );
+    }
+
+    /*TODO save engaged car destination to be displayed*/
+    private void addCarDestination() {
+
+    }
 }
+
+
+
