@@ -7,25 +7,25 @@
     tools:context=".MapsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        android:elevation="4dp"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:elevation="4dp"
-        map:layout_constraintBottom_toBottomOf="@+id/map"
+        android:id="@+id/constraintLayout"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintHorizontal_bias="0.497"
+        map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/white"
-            android:paddingTop="8dp"
-            android:text="Good evening, B"
-            android:textAlignment="center"
             android:textSize="20sp"
+            android:paddingTop="8dp"
+            android:id="@+id/textView"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:text="@string/good_evening_b"
             map:layout_constraintEnd_toEndOf="parent"
+            android:background="@android:color/white"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent" />
 
@@ -33,13 +33,36 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            map:layout_constraintEnd_toEndOf="parent"
             android:background="@android:color/white"
-            map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toBottomOf="@+id/textView">
 
+            <TextView
+                android:id="@+id/whereTo"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                android:text="@string/where_to"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/selectLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:padding="6dp"
+                android:text="@string/select_location"
+                android:textSize="20sp"
+                map:layout_constraintBottom_toBottomOf="@+id/whereTo"
+                map:layout_constraintStart_toEndOf="@+id/whereTo"
+                map:layout_constraintTop_toTopOf="@+id/whereTo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -54,11 +77,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:elevation="2dp"
-        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintHorizontal_bias="1.0"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.0" />
+        map:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

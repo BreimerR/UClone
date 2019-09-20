@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">UClone</string>
     <string name="title_activity_maps">Map</string>
+    <string name="select_location">Select Location</string>
+    <string name="where_to">Where to</string>
+    <string name="good_evening_b">Good evening, B</string>
 </resources>

@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +44,23 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     private void initAppComponents(@Nullable Bundle savedInstanceState) {
         mMapMapManager = new MapManager(this, this, getSupportFragmentManager().findFragmentById(R.id.map));
+
+        initializeTextView();
+    }
+
+
+    private void initializeTextView() {
+        TextView whereTo = findViewById(R.id.whereTo);
+        TextView selectLoc = findViewById(R.id.selectLoc);
+
+
+        whereTo.setOnClickListener(view -> {
+            // TODO(open set location activity)
+        });
+
+        selectLoc.setOnClickListener(view -> {
+            // TODO(open previous visited places activity )
+        });
     }
 
     @Override
@@ -59,7 +77,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
         mMapMapManager.setLocationAndUpdateCameraZoom(currentLocation(), DEFAULT_ZOOM);
 
-        mMapMapManager.addCar(new Car("cad", "true", "0.2", lat,lng));
+        Log.d(TAG, "adding tag to view");
+
+        // mMapMapManager.addCar(new Car("cad", "true", "0.2", lat,lng));
     }
 
 

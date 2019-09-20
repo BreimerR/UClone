@@ -98,7 +98,6 @@ public class MapManager implements OnMapReadyCallback {
         mMap.addMarker(
                 new MarkerOptions()
                         .position(loc)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.engaged))
         );
     }
 
@@ -175,11 +174,11 @@ public class MapManager implements OnMapReadyCallback {
 
     private void addEngagedCar(Car car) {
         // TODO car has states i.e engaged and free states different Icons can be used for them
-        // TODO lazy init would be preffered
+        // TODO lazy init would be preferred
         addMarker(
                 new MarkerOptions()
                         .position(car.getLocation())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.engaged))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.engaged_42))
         );
     }
 
@@ -193,7 +192,7 @@ public class MapManager implements OnMapReadyCallback {
         addMarker(
                 new MarkerOptions()
                         .position(car.getLocation())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.free))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.free_24))
         );
     }
 
