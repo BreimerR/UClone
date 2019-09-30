@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".historyActivity">
+
+    <Button
+        android:id="@+id/btn_past_trips"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:onClick="fragSwitcher"
+        android:background="#000"
+        android:textColor="#fff"
+        android:text="Past trips"
+        app:layout_constraintEnd_toStartOf="@+id/btn_upcoming_trips"
+        app:layout_constraintHeight_percent="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <Button
+        android:id="@+id/btn_upcoming_trips"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#000"
+        android:textColor="#fff"
+        android:onClick="fragSwitcher"
+        android:text="upcoming trips"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.061"
+        app:layout_constraintStart_toEndOf="@+id/btn_past_trips"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.alc.uclone.activities.fragments.pastTripsFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_past_trips"
+        tools:layout="@layout/fragment_past_trips" />
+</androidx.constraintlayout.widget.ConstraintLayout>
